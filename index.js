@@ -36,7 +36,7 @@ app.post('/webhook/', jsonParser, function(req, res) {
     if (event.message && event.message.text) {
       text = event.message.text;
       if (text === 'Generic') {
-        sendGenericMessage(sender);
+        chat.sendGenericMessage(sender);
         continue;
       }
       chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
