@@ -49,6 +49,7 @@ app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
       //   continue;
       // }
       // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+      chat.sendTextMessage(sender, "Text received, echo: "+ req.sender);
     }
   }
   res.sendStatus(200);
