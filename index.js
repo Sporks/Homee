@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
+var chat = require('./chatCommands.js');
 
 
 
@@ -33,7 +34,7 @@ app.post('/webhook/', function(req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      // Handle a text message from this sender
+      chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
       console.log(text);
     }
   }
