@@ -29,7 +29,6 @@ app.get('/webhook/', function(req, res) {
 });
 
 app.post('/webhook/', jsonParser, function(req, res) {
-  console.log(req.body)
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
@@ -37,7 +36,6 @@ app.post('/webhook/', jsonParser, function(req, res) {
     if (event.message && event.message.text) {
       text = event.message.text;
       chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      console.log(text);
     }
   }
   res.sendStatus(200);
