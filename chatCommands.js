@@ -52,6 +52,13 @@ chat.sendGenericMessage = function(sender) {
     }
   });
 }
+chat.askQuestions = function(sender, text){
+  messageData = {
+    text:text
+  };
+
+}
+
 
 chat.sendTextMessage = function(sender, text) {
   messageData = {
