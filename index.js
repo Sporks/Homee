@@ -5,7 +5,8 @@ var fs = require('fs');
 var path = require('path');
 var chat = require('./chatCommands.js');
 
-
+//Need to parse body with bodyparser to JSON
+var jsonParser = bodyParser.json();
 
 app.use(express.static(path.join(__dirname, './client')));
 
@@ -27,7 +28,7 @@ app.get('/webhook/', function(req, res) {
   res.send('Error, wrong validation token');
 });
 
-app.post('/webhook/', function(req, res) {
+app.post('/webhook/', jsonParser, function(req, res) {
   console.log(req.body)
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
