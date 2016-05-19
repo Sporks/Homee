@@ -68,7 +68,6 @@ chat.askQuestions = function(req, res, next){
     });
   p1.then(function(val){
     console.log(req.info.text, "DA       ");
-    chat.sendTextMessage(req.info.sender, "SUP BABY");
     request({
       url: 'https://graph.facebook.com/v2.6/me/messages',
       qs: {access_token:token},
