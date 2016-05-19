@@ -1,4 +1,5 @@
 'use strict'
+var dbController = require('./dbController');
 
 var token = "EAASI7Ir9omABAJjzbuKBY53QZB1POlZBfgFDtQrWGjQStusgSDvpELCZCWSl3ZCG6aqsQmZAHjMD4wBM9xoA3e1mj9W3OJoZCj1JhNpt6aaxb72BP0ZCQSG2RRk2t4yucVAQxFpzsKZBduueZBDgm04uHU4JnIZAhnES90RnFatmLniAZDZD";
 var request = require('request');
@@ -57,9 +58,33 @@ chat.sendGenericMessage = function(sender) {
 
 chat.askQuestions = function(req, res, next){
   var messageData = {
-    text: req.info.text
+    text: req.info.text,
+    db: req.info.db
   };
-
+  req.info.db.style = "Modern";
+  //Promisify updating the database
+  var p1 = new Promise((resolve, reject)=>{
+      dbController.updateInfo(req.info);
+    });
+  p1.then(function(val){
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+      json: {
+        recipient: {id:req.sender},
+        message: messageData,
+      }
+    }, function(error, response, body) {
+      if (error) {
+        console.log('Error sending message: ', error);
+      } else if (response.body.error) {
+        console.log('Error: ', response.body.error);
+      }
+    });
+  }).catch((val)=>{
+      console.log("Promise rejected: ", val);
+  });
 }
 
 

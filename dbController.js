@@ -51,9 +51,9 @@ module.exports = {
       });
     }
   },
-  updateInfo: function(req, res){
-    var query = Update.where({user: req.info.sender, archived: false});
-    query.findOneAndUpdate( req.info.db, function(err, newInfo){
+  updateInfo: function(info){
+    var query = Update.where({user: info.sender, archived: false});
+    query.findOneAndUpdate( info.db, function(err, newInfo){
       if(err) console.log(err);
       else{
         console.log("NewInfo ", newInfo);
