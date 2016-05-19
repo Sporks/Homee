@@ -39,7 +39,7 @@ app.get('/webhook/', function(req, res) {
 });
 
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
-app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
+app.post('/webhook/', jsonParser, function(req, res) {
   req.info = {};
   let messaging_events = req.body.entry[0].messaging;
   console.log(req.body.entry[0].messaging.length);
@@ -54,7 +54,7 @@ app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
     }
     chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.questsAnsd);
   }
-  
+
   // req.info = {};
   res.sendStatus(200);
   console.log("DONE ");

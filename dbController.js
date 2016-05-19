@@ -43,6 +43,7 @@ module.exports = {
       //   }
       // });
       // }
+      continue;
       next();
     },
   updateInfo: function(info, resolve, reject){
