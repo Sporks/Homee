@@ -39,7 +39,7 @@ app.get('/webhook/', function(req, res) {
 });
 
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
-app.post('/webhook/', jsonParser, function(req, res) {
+app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
   // let messaging_events = req.body.entry[0].messaging;
   // for (let i = 0; i < messaging_events.length; i++) {
   //   let event = req.body.entry[0].messaging[i];
@@ -52,10 +52,10 @@ app.post('/webhook/', jsonParser, function(req, res) {
   //     //   continue;
   //     // }
   //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.questsAnsd);
+  chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.questsAnsd);
   //   }
   // }
-  req.info = {};
+  // req.info = {};
   res.sendStatus(200);
   console.log("DONE ");
   // res.end();

@@ -7,7 +7,7 @@ module.exports = {
     //Initialize req.info to store data
     req.info = {};
     let messaging_events = req.body.entry[0].messaging;
-    console.log(req.body.entry[0].messaging.length)
+    console.log(req.body.entry[0].messaging.length);
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i];
 
