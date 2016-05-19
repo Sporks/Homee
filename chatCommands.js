@@ -61,9 +61,7 @@ chat.askQuestions = function(req, res, next){
     text: req.info.text,
     db: req.info.db
   };
-  console.log(req.info.db);
-  req.info.db.style = "Modern";
-  console.log(req.info.db);
+  req.info.db.room = "Living Room";
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
       dbController.updateInfo(req.info);
@@ -74,7 +72,7 @@ chat.askQuestions = function(req, res, next){
       qs: {access_token:token},
       method: 'POST',
       json: {
-        recipient: {id:req.sender},
+        recipient: {id:req.info.sender},
         message: messageData,
       }
     }, function(error, response, body) {
