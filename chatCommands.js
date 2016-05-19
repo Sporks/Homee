@@ -80,7 +80,8 @@ chat.askQuestions = function(req, res, next){
       } else if (response.body.error) {
         console.log('Error: ', response.body.error);
       }
-      next();
+      res.end();
+      // next();
     });
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
