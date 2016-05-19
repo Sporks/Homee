@@ -36,7 +36,7 @@ app.get('/webhook/', function(req, res) {
   res.send('Error, wrong validation token');
 });
 
-app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
+app.post('/webhook/', jsonParser, function(req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
     event = req.body.entry[0].messaging[i];
@@ -48,8 +48,8 @@ app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
       //   chat.sendGenericMessage(sender);
       //   continue;
       // }
-      // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      chat.sendTextMessage(sender, "Text received, echo: "+ req.sender);
+      chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+      // chat.sendTextMessage(sender, "Text received, echo: "+ req.sender);
     }
   }
   res.sendStatus(200);
