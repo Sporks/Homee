@@ -6,7 +6,7 @@ module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
 
-      var query = Update.where({user: req.info.sender, archived: false});
+      // var query = Update.where({user: req.info.sender, archived: false});
       //Search for document we saved to continue asking questions;
       // query.findOne({},{},{ sort: { 'createdAt' : -1 } }, function(err, foundOne){
       //   if(err){
