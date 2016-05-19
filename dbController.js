@@ -9,7 +9,7 @@ module.exports = {
     let messaging_events = req.body.entry[0].messaging;
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i];
-      let sender = event.sender.id;
+      let req.info.sender = event.sender.id;
       // req.sender = event.sender.id;
       if (event.message && event.message.text) {
         req.info.text = event.message.text;
