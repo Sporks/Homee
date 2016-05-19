@@ -55,7 +55,8 @@ module.exports = {
     },
   updateInfo: function(info){
     var query = Update.where({user: info.sender, archived: false});
-    query.findOneAndUpdate( info.db, function(err, newInfo){
+    var newInfo = info.db.toObject();
+    query.findOneAndUpdate( newInfo, function(err, newInfo){
       if(err) console.log(err);
       else{
         console.log("NewInfo ", newInfo);
