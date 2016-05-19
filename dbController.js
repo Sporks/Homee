@@ -5,7 +5,18 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
-
+    let req.info = {};
+    let messaging_events = req.body.entry[0].messaging;
+    for (let i = 0; i < messaging_events.length; i++) {
+      let event = req.body.entry[0].messaging[i];
+      let sender = event.sender.id;
+      // req.sender = event.sender.id;
+      if (event.message && event.message.text) {
+        req.info.text = event.message.text;
+      }
+      next();
+    }
+        // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
       // var query = Update.where({user: req.info.sender, archived: false});
       //Search for document we saved to continue asking questions;
       // query.findOne({},{},{ sort: { 'createdAt' : -1 } }, function(err, foundOne){
@@ -43,7 +54,6 @@ module.exports = {
       //   }
       // });
       // }
-      next();
     },
   updateInfo: function(info, resolve, reject){
     var query = Update.where({user: info.sender, archived: false});
