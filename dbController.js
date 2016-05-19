@@ -54,7 +54,7 @@ module.exports = {
       //   }
       // });
       // }
-      next();
+      // next();
     },
   updateInfo: function(info, resolve, reject){
     var query = Update.where({user: info.sender, archived: false});
