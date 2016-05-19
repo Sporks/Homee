@@ -39,7 +39,7 @@ app.get('/webhook/', function(req, res) {
 });
 
 app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
-  let messaging_events = req.body.entry[0].messaging;
+  // let messaging_events = req.body.entry[0].messaging;
   // for (let i = 0; i < messaging_events.length; i++) {
   //   let event = req.body.entry[0].messaging[i];
   //   let sender = event.sender.id;
@@ -55,6 +55,7 @@ app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, funct
   //   }
   // }
   res.sendStatus(200);
+  console.log("DONE ");
   res.end();
 });
 
