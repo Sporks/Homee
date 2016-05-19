@@ -7,15 +7,15 @@ module.exports = {
     //Initialize req.info to store data
     req.info = {};
     let messaging_events = req.body.entry[0].messaging;
-    for (let i = 0; i < messaging_events.length; i++) {
-      let event = req.body.entry[0].messaging[i];
-      req.info.sender = event.sender.id;
-      // req.sender = event.sender.id;
-      if (event.message && event.message.text) {
-        req.info.text = event.message.text;
-      }
-      // next();
+    // for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[0];
+    req.info.sender = event.sender.id;
+    // req.sender = event.sender.id;
+    if (event.message && event.message.text) {
+      req.info.text = event.message.text;
     }
+      // next();
+    // }
         // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
       // var query = Update.where({user: req.info.sender, archived: false});
       //Search for document we saved to continue asking questions;
