@@ -40,21 +40,21 @@ app.get('/webhook/', function(req, res) {
 
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
 app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
-  // let messaging_events = req.body.entry[0].messaging;
-  // for (let i = 0; i < messaging_events.length; i++) {
-  //   let event = req.body.entry[0].messaging[i];
-  //   let sender = event.sender.id;
-  //   // req.sender = event.sender.id;
-  //   if (event.message && event.message.text) {
-  //     let text = event.message.text;
-  //     // if (text === 'Generic') {
-  //     //   chat.sendGenericMessage(sender);
-  //     //   continue;
-  //     // }
-  //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-  chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.questsAnsd);
-  //   }
-  // }
+  req.info = {};
+  let messaging_events = req.body.entry[0].messaging;
+  console.log(req.body.entry[0].messaging.length);
+  for (let i = 0; i < messaging_events.length; i++) {
+    let event = req.body.entry[0].messaging[i];
+
+    //Save information in header for use with middleware.
+    req.info.sender = event.sender.id;
+    if (event.message && event.message.text) {
+      // console.log(event.message.text);
+      req.info.text = event.message.text;
+    }
+    chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.questsAnsd);
+  }
+  
   // req.info = {};
   res.sendStatus(200);
   console.log("DONE ");

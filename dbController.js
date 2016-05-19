@@ -5,18 +5,7 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
-    req.info = {};
-    let messaging_events = req.body.entry[0].messaging;
-    console.log(req.body.entry[0].messaging.length);
-    for (let i = 0; i < messaging_events.length; i++) {
-      let event = req.body.entry[0].messaging[i];
-
-      //Save information in header for use with middleware.
-      req.info.sender = event.sender.id;
-      if (event.message && event.message.text) {
-        // console.log(event.message.text);
-        req.info.text = event.message.text;
-      }
+    
       var query = Update.where({user: req.info.sender, archived: false});
       //Search for document we saved to continue asking questions;
       // query.findOne({},{},{ sort: { 'createdAt' : -1 } }, function(err, foundOne){
