@@ -27,6 +27,7 @@ chat.verify = function(req, res, qAnsd){
   let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.slice(1).toLowerCase();
   if(questions[qAnsd].answers.indexOf(ans) === -1){
     chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
+    console.log(ans, questions[qAnsd].answers)
     return false;
   }
   else{
