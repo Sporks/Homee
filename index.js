@@ -38,46 +38,46 @@ app.get('/webhook/', function(req, res) {
   res.send('Error, wrong validation token');
 });
 
-// app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
-//   // let messaging_events = req.body.entry[0].messaging;
-//   // for (let i = 0; i < messaging_events.length; i++) {
-//   //   let event = req.body.entry[0].messaging[i];
-//   //   let sender = event.sender.id;
-//   //   // req.sender = event.sender.id;
-//   //   if (event.message && event.message.text) {
-//   //     let text = event.message.text;
-//   //     // if (text === 'Generic') {
-//   //     //   chat.sendGenericMessage(sender);
-//   //     //   continue;
-//   //     // }
-//   //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-//   //     chat.sendTextMessage(sender, "Text received, echo: "+ req.info.questsAnsd);
-//   //   }
-//   // }
-//   res.sendStatus(200);
-//   console.log("DONE ");
-//   res.end();
-// });
-
-app.post('/webhook/', jsonParser, function(req, res) {
-  let messaging_events = req.body.entry[0].messaging;
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i];
-    let sender = event.sender.id;
-    // req.sender = event.sender.id;
-    if (event.message && event.message.text) {
-      let text = event.message.text;
-      // if (text === 'Generic') {
-      //   chat.sendGenericMessage(sender);
-      //   continue;
-      // }
-      // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      chat.sendTextMessage(sender, "Text received, echo: "+ text);
-    }
-  }
+app.post('/webhook/', jsonParser, dbController.getInfo, chat.sendTextMessage2, function(req, res) {
+  // let messaging_events = req.body.entry[0].messaging;
+  // for (let i = 0; i < messaging_events.length; i++) {
+  //   let event = req.body.entry[0].messaging[i];
+  //   let sender = event.sender.id;
+  //   // req.sender = event.sender.id;
+  //   if (event.message && event.message.text) {
+  //     let text = event.message.text;
+  //     // if (text === 'Generic') {
+  //     //   chat.sendGenericMessage(sender);
+  //     //   continue;
+  //     // }
+  //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+  //     chat.sendTextMessage(sender, "Text received, echo: "+ req.info.questsAnsd);
+  //   }
+  // }
   res.sendStatus(200);
   console.log("DONE ");
+  res.end();
 });
+
+// app.post('/webhook/', jsonParser, function(req, res) {
+//   let messaging_events = req.body.entry[0].messaging;
+//   for (let i = 0; i < messaging_events.length; i++) {
+//     let event = req.body.entry[0].messaging[i];
+//     let sender = event.sender.id;
+//     // req.sender = event.sender.id;
+//     if (event.message && event.message.text) {
+//       let text = event.message.text;
+//       // if (text === 'Generic') {
+//       //   chat.sendGenericMessage(sender);
+//       //   continue;
+//       // }
+//       // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+//       chat.sendTextMessage(sender, "Text received, echo: "+ text);
+//     }
+//   }
+//   res.sendStatus(200);
+//   console.log("DONE ");
+// });
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Server is lisening on port 3000');
