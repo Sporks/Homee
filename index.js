@@ -54,6 +54,7 @@ app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, funct
   //     chat.sendTextMessage(sender, "Text received, echo: "+ req.info.questsAnsd);
   //   }
   // }
+  req.info = {};
   res.sendStatus(200);
   console.log("DONE ");
   res.end();
