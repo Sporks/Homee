@@ -72,7 +72,7 @@ app.post('/webhook/', jsonParser, function(req, res) {
       //   continue;
       // }
       // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      chat.sendTextMessage(sender, "Text received, echo: "+ req.info.questsAnsd);
+      chat.sendTextMessage(sender, "Text received, echo: "+ text);
     }
   }
   res.sendStatus(200);
