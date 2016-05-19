@@ -31,13 +31,14 @@ module.exports = {
                   }
           }).then(function(update){
             console.log(update);
-            req.update = update;
+            req.info = update;
             next();
-            
+
           });
         }
         else if(foundOne){
-          console.log("SUP found");
+          console.log("SUP found", foundOne);
+          req.info = foundOne
           next();
         }
       });
