@@ -14,7 +14,7 @@ module.exports = {
       if (event.message && event.message.text) {
         req.info.text = event.message.text;
       }
-      next();
+      // next();
     }
         // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
       // var query = Update.where({user: req.info.sender, archived: false});
@@ -54,6 +54,7 @@ module.exports = {
       //   }
       // });
       // }
+      next();
     },
   updateInfo: function(info, resolve, reject){
     var query = Update.where({user: info.sender, archived: false});
