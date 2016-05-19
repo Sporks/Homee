@@ -59,6 +59,7 @@ chat.sendGenericMessage = function(sender) {
 chat.askQuestions = function(req, res, next){
   var messageData = {
     text: req.info.text,
+    db: req.info.db
   };
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
@@ -82,8 +83,8 @@ chat.askQuestions = function(req, res, next){
       } else if (response.body.error) {
         console.log('Error: ', response.body.error);
       }
+      next();
     });
-    next();
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
       next();
