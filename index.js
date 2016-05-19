@@ -41,7 +41,7 @@ app.get('/webhook/', function(req, res) {
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
 
 
-app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
+app.post('/webhook/', jsonParser, function(req, res) {
   let messaging_events = req.body.entry[0].messaging;
   req.info = {};
   for (let i = 0; i < messaging_events.length; i++) {
@@ -49,7 +49,8 @@ app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
     req.info.sender = event.sender.id;
     // req.sender = event.sender.id;
     if (event.message && event.message.text) {
-      let text = event.message.text;
+      dbController.getInfo(req, res);
+      req.info.text = event.message.text;
       // if (text === 'Generic') {
       //   chat.sendGenericMessage(sender);
       //   continue;
