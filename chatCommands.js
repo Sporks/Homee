@@ -48,7 +48,7 @@ chat.askQuestions = function(req, res, next){
       req.info.db.questsAnsd++;
       break;
     case 1:
-      if(!chat.verify(req, res, qAnsd)){
+      if(!chat.verify(req, res, qAnsd-1)){
         chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
       }
       else{
