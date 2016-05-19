@@ -13,6 +13,7 @@ module.exports = {
         //Save information in header for use with middleware.
         req.info.sender = event.sender.id;
         if (event.message && event.message.text) {
+          console.log(event.message.text);
           req.info.text = event.message.text;
         }
         var query = Update.where({user: req.info.sender, archived: false});

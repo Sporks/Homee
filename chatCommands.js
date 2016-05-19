@@ -59,7 +59,6 @@ chat.sendGenericMessage = function(sender) {
 chat.askQuestions = function(req, res, next){
   var messageData = {
     text: req.info.text,
-    db: req.info.db
   };
   req.info.db.room = "Living Room";
   //Promisify updating the database
