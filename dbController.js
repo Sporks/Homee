@@ -9,6 +9,6 @@ module.exports = {
       // sender = event.sender.id;
       req.sender = event.sender.id;
     }
-    console.log(req.sender);
+    // console.log(req.sender);
   }
 };
