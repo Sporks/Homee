@@ -31,7 +31,7 @@ chat.questions = function(req, res){
 chat.askQuestions = function(req, res, next){
   switch(req.info.db.questsAnsd){
     case 0:
-       chat.sendTextMessage(req.info.sender, questions.q1.q);
+       chat.sendTextMessage(req.info.sender, questions.q1.q+"Options are: "+questions.q1.answers.join(","));
        break;
   }
   // var messageData = {
