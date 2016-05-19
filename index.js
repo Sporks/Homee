@@ -41,7 +41,7 @@ app.get('/webhook/', function(req, res) {
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
 
 
-app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
+app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
   // let messaging_events = req.body.entry[0].messaging;
   // req.info = {};
   // for (let i = 0; i < messaging_events.length; i++) {

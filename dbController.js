@@ -14,59 +14,51 @@ module.exports = {
       // req.sender = event.sender.id;
       if (event.message && event.message.text) {
         req.info.text = event.message.text;
-        // if (text === 'Generic') {
-        //   chat.sendGenericMessage(sender);
-        //   continue;
-        // }
-        // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-        // chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.text);
-        next();
+        var query = Update.where({user: req.info.sender, archived: false});
+        //Search for document we saved to continue asking questions;
+        query.findOne(function(err, foundOne){
+          if(err){
+            console.log("ERROR ERROR     ", err);
+          }
+          //IF we can't find the document, add it to the database and continue
+          if(!foundOne){
+            let created = Date.now();
+            let update = new Update({ user: req.sender,
+                                      createdAt: created,
+                                      questsAnsd: 0,
+                                      archived: false
+                                    });
+            //Save the document to the database
+            update.save( function(err, update){
+                    if(err) {
+                        console.error(err);
+                    }
+                    else {
+                        console.log (`${req.sender} - date:${created} has been added to the database.`);
+                    }
+            }).then(function(update){
+              //Add to header for use with questions
+              req.info.db = update;
+              next();
+            });
+          }
+          //If we find it, add it to the header for use with questions
+          else if(foundOne){
+            console.log("SUP found");
+            req.info.db = foundOne;
+            next();
+          }
+        });
       }
+/*************************************************
+*****IF NO TEXT IS RECIEVED, GET OUT OF LOOP******
+**************************************************/
       else{
-        console.log("no message, get out of loop")
         res.end();
       }
     }
-        // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-      // var query = Update.where({user: req.info.sender, archived: false});
-      //Search for document we saved to continue asking questions;
-      // query.findOne({},{},{ sort: { 'createdAt' : -1 } }, function(err, foundOne){
-      //   if(err){
-      //     console.log("ERROR ERROR     ", err);
-      //   }
-      //   //IF we can't find the document, add it to the database and continue
-      //   if(!foundOne){
-      //     let created = Date.now();
-      //     let update = new Update({ user: req.sender,
-      //                               createdAt: created,
-      //                               questsAnsd: 0,
-      //                               archived: false
-      //                             });
-      //     //Save the document to the database
-      //     update.save( function(err, update){
-      //             if(err) {
-      //                 console.error(err);
-      //             }
-      //             else {
-      //                 console.log (`${req.sender} - date:${created} has been added to the database.`);
-      //             }
-      //     }).then(function(update){
-      //       //Add to header for use with questions
-      //       req.info.db = update;
-      //       next();
-      //
-      //     });
-      //   }
-      //   //If we find it, add it to the header for use with questions
-      //   else if(foundOne){
-      //     console.log("SUP found");
-      //     req.info.db = foundOne;
-      //     next();
-      //   }
-      // });
-      // }
-      // next();
-    },
+  },
+
   updateInfo: function(info, resolve, reject){
     var query = Update.where({user: info.sender, archived: false});
     var newInfo = info.db.toObject();
