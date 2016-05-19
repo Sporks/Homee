@@ -7,7 +7,7 @@ var chat = {};
 // chat.sendTextMessage = sendTextMessage;
 
 chat.sendGenericMessage = function(sender) {
-  messageData = {
+  var messageData = {
     "attachment": {
       "type": "template",
       "payload": {
@@ -55,7 +55,7 @@ chat.sendGenericMessage = function(sender) {
   });
 }
 chat.askQuestions = function(sender, text){
-  messageData = {
+  var messageData = {
     text:text
   };
 
@@ -63,7 +63,7 @@ chat.askQuestions = function(sender, text){
 
 
 chat.sendTextMessage = function(sender, text) {
-  messageData = {
+  var messageData = {
     text:text
   };
   request({
