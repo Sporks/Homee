@@ -63,6 +63,7 @@ chat.askQuestions = function(req, res, next){
   };
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
+    //REMEMBER TO RESOLVE PROMISES!
       dbController.updateInfo(req.info, resolve, reject);
       // console.log(resolve, reject);
     });
