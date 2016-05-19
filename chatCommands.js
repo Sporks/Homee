@@ -7,8 +7,8 @@ var request = require('request');
 var chat = {};
 // chat.sendTextMessage = sendTextMessage;
 var questions =  [{"q": "What room can we help you with?",
-                        "answers": ["Living Room", "Bedroom", "Office",
-                                    "Dining Room", "Outdoor"]},
+                        "answers": ["living room", "bedroom", "office",
+                                    "dining room", "outdoor"]},
                   {"q": "What is your budget?",
                         "answers": ["$500 and under", "­$500 ­- $1000", "$1000 - $3000",
                                     "$3000 - $5000", "Over $5000"]},
@@ -16,8 +16,8 @@ var questions =  [{"q": "What room can we help you with?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"]},
                   {"q": "How would you describe your style?",
-                        "answers": ["Modern", "Traditional", "Industrial",
-                                    "Eclectic", "Contemporary"]},
+                        "answers": ["modern", "traditional", "industrial",
+                                    "eclectic", "contemporary"]},
                   {"q": "Can you send us some pictures of your space?"},
                   {"q": "Do you have any special requests or additional information?"}
                 ];
