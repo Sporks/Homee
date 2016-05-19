@@ -5,7 +5,7 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
-    console.log("OK")
+    console.log("OK");
     // req.info = {};
     // let messaging_events = req.body.entry[0].messaging;
     // // for (let i = 0; i < messaging_events.length; i++) {
@@ -14,7 +14,7 @@ module.exports = {
     // // req.sender = event.sender.id;
     // if (event.message && event.message.text) {
     //   req.info.text = event.message.text;
-    }
+    // }
       // next();
     // }
         // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
