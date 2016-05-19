@@ -4,9 +4,10 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     messaging_events = req.body.entry[0].messaging;
+    console.log(messaging_events)
+
     for (i = 0; i < messaging_events.length; i++) {
       event = req.body.entry[0].messaging[i];
-      console.log(event)
       // sender = event.sender.id;
       req.sender = event.sender.id;
     }
