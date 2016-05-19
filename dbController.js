@@ -12,6 +12,6 @@ module.exports = {
       req.sender = event.sender.id;
     }
     // console.log(req.sender);
+    next();
   }
-  next();
 };
