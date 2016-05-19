@@ -6,17 +6,27 @@ module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
     console.log("OK");
-    // req.info = {};
-    // let messaging_events = req.body.entry[0].messaging;
-    // // for (let i = 0; i < messaging_events.length; i++) {
-    // let event = req.body.entry[0].messaging[0];
-    // req.info.sender = event.sender.id;
-    // // req.sender = event.sender.id;
-    // if (event.message && event.message.text) {
-    //   req.info.text = event.message.text;
-    // }
-      // next();
-    // }
+    let messaging_events = req.body.entry[0].messaging;
+    req.info = {};
+    for (let i = 0; i < messaging_events.length; i++) {
+      let event = req.body.entry[0].messaging[i];
+      req.info.sender = event.sender.id;
+      // req.sender = event.sender.id;
+      if (event.message && event.message.text) {
+        req.info.text = event.message.text;
+        // if (text === 'Generic') {
+        //   chat.sendGenericMessage(sender);
+        //   continue;
+        // }
+        // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+        // chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.text);
+        next();
+      }
+      else{
+        console.log("no message, get out of loop")
+        res.end();
+      }
+    }
         // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
       // var query = Update.where({user: req.info.sender, archived: false});
       //Search for document we saved to continue asking questions;

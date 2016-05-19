@@ -41,25 +41,24 @@ app.get('/webhook/', function(req, res) {
 // app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, function(req, res) {
 
 
-app.post('/webhook/', jsonParser, function(req, res) {
-  let messaging_events = req.body.entry[0].messaging;
-  req.info = {};
-  for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[i];
-    req.info.sender = event.sender.id;
-    // req.sender = event.sender.id;
-    if (event.message && event.message.text) {
-      dbController.getInfo(req, res);
-      req.info.text = event.message.text;
-      // if (text === 'Generic') {
-      //   chat.sendGenericMessage(sender);
-      //   continue;
-      // }
-  //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
-    // dbController.getInfo(req, res);
+app.post('/webhook/', jsonParser, dbController.getInfo, function(req, res) {
+  // let messaging_events = req.body.entry[0].messaging;
+  // req.info = {};
+  // for (let i = 0; i < messaging_events.length; i++) {
+  //   let event = req.body.entry[0].messaging[i];
+  //   req.info.sender = event.sender.id;
+  //   // req.sender = event.sender.id;
+  //   if (event.message && event.message.text) {
+  //     req.info.text = event.message.text;
+  //     // if (text === 'Generic') {
+  //     //   chat.sendGenericMessage(sender);
+  //     //   continue;
+  //     // }
+  // //     // chat.sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+  //   // dbController.getInfo(req, res);
       chat.sendTextMessage(req.info.sender, "Text received, echo: "+ req.info.text);
-    }
-  }
+  //   }
+  // }
   res.sendStatus(200);
   console.log("DONE ");
 });
