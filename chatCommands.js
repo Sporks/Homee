@@ -60,6 +60,7 @@ chat.askQuestions = function(req, res, next){
   var messageData = {
     text: req.info.text,
   };
+  console.log(req.info.text, "DA       ");
   req.info.db.room = "Living Room";
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{

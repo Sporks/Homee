@@ -55,6 +55,7 @@ app.post('/webhook/', jsonParser, dbController.getInfo, chat.askQuestions, funct
   //   }
   // }
   res.sendStatus(200);
+  res.end();
 });
 
 
