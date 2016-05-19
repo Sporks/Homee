@@ -23,7 +23,7 @@ module.exports = {
           //IF we can't find the document, add it to the database and continue
           if(!foundOne){
             let created = Date.now();
-            let update = new Update({ user: req.sender,
+            let update = new Update({ user: req.info.sender,
                                       createdAt: created,
                                       questsAnsd: 0,
                                       archived: false
@@ -34,7 +34,7 @@ module.exports = {
                         console.error(err);
                     }
                     else {
-                        console.log (`${req.sender} - date:${created} has been added to the database.`);
+                        console.log (`${req.info.sender} - date:${created} has been added to the database.`);
                     }
             }).then(function(update){
               //Add to header for use with questions
