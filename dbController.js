@@ -28,8 +28,12 @@ module.exports = {
                   }
                   else {
                       console.log (`${req.sender} - date:${created} has been added to the database.`);
-                      next();
                   }
+          }).then(function(update){
+            console.log(update);
+            req.update = update;
+            next();
+            
           });
         }
         else if(foundOne){
