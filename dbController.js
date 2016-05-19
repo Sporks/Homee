@@ -5,14 +5,15 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
-    req.info = {};
-    let messaging_events = req.body.entry[0].messaging;
-    // for (let i = 0; i < messaging_events.length; i++) {
-    let event = req.body.entry[0].messaging[0];
-    req.info.sender = event.sender.id;
-    // req.sender = event.sender.id;
-    if (event.message && event.message.text) {
-      req.info.text = event.message.text;
+    console.log("OK")
+    // req.info = {};
+    // let messaging_events = req.body.entry[0].messaging;
+    // // for (let i = 0; i < messaging_events.length; i++) {
+    // let event = req.body.entry[0].messaging[0];
+    // req.info.sender = event.sender.id;
+    // // req.sender = event.sender.id;
+    // if (event.message && event.message.text) {
+    //   req.info.text = event.message.text;
     }
       // next();
     // }
