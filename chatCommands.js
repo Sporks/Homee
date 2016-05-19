@@ -61,7 +61,9 @@ chat.askQuestions = function(req, res, next){
     text: req.info.text,
     db: req.info.db
   };
+  console.log(req.info.db);
   req.info.db.style = "Modern";
+  console.log(req.info.db);
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
       dbController.updateInfo(req.info);
