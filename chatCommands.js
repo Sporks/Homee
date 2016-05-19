@@ -6,7 +6,7 @@ var request = require('request');
 
 var chat = {};
 // chat.sendTextMessage = sendTextMessage;
-var questions =  [{"q": "Hello and welcome to Homee!  What room can we help you with?",
+var questions =  [{"q": "What room can we help you with?",
                         "answers": ["Living Room", "Bedroom", "Office",
                                     "Dining Room", "Outdoor"]},
                   {"q": "What is your budget?",
@@ -26,9 +26,11 @@ var questions =  [{"q": "Hello and welcome to Homee!  What room can we help you 
 chat.verify = function(req, res, qAnsd){
   let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.slice(1).toLowerCase();
   if(questions[qAnsd].answers.indexOf(ans) === -1){
+    chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
     return false;
   }
   else{
+    chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
     return true;
   }
 };
@@ -41,16 +43,14 @@ chat.askQuestions = function(req, res, next){
   let qAnsd = req.info.db.questsAnsd;
   switch(qAnsd){
     case 0:
-      chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+      chat.sendTextMessage(req.info.sender, "Hello and welcome to Homee! "+chat.createQuestion(qAnsd));
       req.info.db.questsAnsd++;
       break;
     case 1:
       if(!chat.verify(req, res, qAnsd)){
-        chat.sendTextMessage(req.info.sender, "Incorrect response");
         chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
       }
       else{
-        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
         chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
       }
       break;
