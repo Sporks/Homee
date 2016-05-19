@@ -54,13 +54,17 @@ module.exports = {
         });
       }
     },
-  updateInfo: function(info){
+  updateInfo: function(info, resolve, reject){
     var query = Update.where({user: info.sender, archived: false});
     var newInfo = info.db.toObject();
     query.findOneAndUpdate( newInfo, function(err, newInfo){
-      if(err) console.log(err);
+      if(err) {
+        console.log(err);
+        reject("DB Error"+err);
+      }
       else{
-        console.log("NewInfo ", newInfo);
+        console.log("NewInfo ");
+        resolve("Resolved");
       }
     });
   }

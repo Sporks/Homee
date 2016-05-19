@@ -58,16 +58,33 @@ chat.sendGenericMessage = function(sender) {
 
 chat.askQuestions = function(req, res, next){
   var messageData = {
-    text: req.info.text
+    text: req.info.text,
+    db: req.info.db
   };
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
-      // dbController.updateInfo(req.info);
-      console.log(resolve, reject);
+      dbController.updateInfo(req.info, resolve, reject);
+      // console.log(resolve, reject);
     });
   p1.then(function(val){
-    console.log("HI", val);
-
+    console.log(req.info.text, "DA       ");
+    request({
+      url: 'https://graph.facebook.com/v2.6/me/messages',
+      qs: {access_token:token},
+      method: 'POST',
+      json: {
+        recipient: {id:req.info.sender},
+        message: messageData,
+      }
+    }, function(error, response, body) {
+      if (error) {
+        console.log('Error sending message: ', error);
+      } else if (response.body.error) {
+        console.log('Error: ', response.body.error);
+      }
+      // res.end();
+      next();
+    });
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
       next();
