@@ -60,9 +60,12 @@ chat.askQuestions = function(req, res, next){
   var messageData = {
     text: req.info.text,
   };
-  req.info.db.room = "Living Room";
   //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
+    console.log(req.info.text, "DA      222 ");
+
+    next();
+
       dbController.updateInfo(req.info);
     });
   p1.then(function(val){
@@ -85,6 +88,7 @@ chat.askQuestions = function(req, res, next){
     next();
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
+      next();
   });
 }
 
