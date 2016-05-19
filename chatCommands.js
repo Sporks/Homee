@@ -7,8 +7,8 @@ var request = require('request');
 var chat = {};
 // chat.sendTextMessage = sendTextMessage;
 var questions =  [{"q": "What room can we help you with?",
-                        "answers": ["living room", "bedroom", "office",
-                                    "dining room", "outdoor"]},
+                        "answers": ["Living Room", "Bedroom", "Office",
+                                    "Dining Room", "Outdoor"]},
                   {"q": "What is your budget?",
                         "answers": ["$500 and under", "­$500 ­- $1000", "$1000 - $3000",
                                     "$3000 - $5000", "Over $5000"]},
@@ -16,18 +16,23 @@ var questions =  [{"q": "What room can we help you with?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"]},
                   {"q": "How would you describe your style?",
-                        "answers": ["modern", "traditional", "industrial",
-                                    "eclectic", "contemporary"]},
+                        "answers": ["Modern", "Traditional", "Industrial",
+                                    "Eclectic", "Contemporary"]},
                   {"q": "Can you send us some pictures of your space?"},
                   {"q": "Do you have any special requests or additional information?"}
                 ];
 
 
 chat.verify = function(req, res, qAnsd){
-  let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.slice(1).toLowerCase();
-  if(questions[qAnsd].answers.indexOf(ans) === -1){
+  //Lowercase user answer for ease of matching
+  let ans = req.info.text.toLowerCase();
+  let ansArray = [];
+  questions[qAnsd].answers.forEach(function(val){
+    //Put all to lowercase for ease of matching with answers provided by user
+    ansArray.push(val.toLowerCase());
+  });
+  if(ansArray.indexOf(ans) === -1){
     chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
-    console.log(ans, questions[qAnsd].answers)
     return false;
   }
   else{
