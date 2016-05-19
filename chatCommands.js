@@ -6,33 +6,55 @@ var request = require('request');
 
 var chat = {};
 // chat.sendTextMessage = sendTextMessage;
-var questions ={  "q1": {"q": "Hello and welcome to Homee!  What room can we help you with?",
+var questions =  [{"q": "Hello and welcome to Homee!  What room can we help you with?",
                         "answers": ["Living Room", "Bedroom", "Office",
                                     "Dining Room", "Outdoor"]},
-                  "q2": {"q": "What is your budget?",
-                        "answers": ["$500 and under", "­$500 ­- $1000","$1000 - $3000",
-                                    "$3000 - $5000","Over $5000"]},
-                  "q3": {"q": "When do you need your furniture by?",
+                  {"q": "What is your budget?",
+                        "answers": ["$500 and under", "­$500 ­- $1000", "$1000 - $3000",
+                                    "$3000 - $5000", "Over $5000"]},
+                  {"q": "When do you need your furniture by?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"]},
-                  "q4": {"q": "How would you describe your style?",
+                  {"q": "How would you describe your style?",
                         "answers": ["Modern", "Traditional", "Industrial",
                                     "Eclectic", "Contemporary"]},
-                  "q5": {"q": "Can you send us some pictures of your space?"},
-                  "q6": {"q": "Do you have any special requests or additional information?"}
-                };
+                  {"q": "Can you send us some pictures of your space?"},
+                  {"q": "Do you have any special requests or additional information?"}
+                ];
 
 
-chat.questions = function(req, res){
+chat.verify = function(req, res, qAnsd){
+  let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.string.slice(1).toLowerCase();
+  if(questions[qAnsd].answers.indexOf(ans) === -1){
+    return false;
+  }
+  else{
+    return true;
+  }
+};
 
-}
-
+chat.createQuestion = function(qAnsd){
+  return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
+};
 
 chat.askQuestions = function(req, res, next){
-  switch(req.info.db.questsAnsd){
+  let qAnsd = req.info.db.questsAnsd;
+  switch(qAnsd){
     case 0:
-       chat.sendTextMessage(req.info.sender, questions.q1.q+"Options are: "+questions.q1.answers.join(", "));
-       break;
+      chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+      req.info.db.questsAnsd++;
+      break;
+    case 1:
+      if(!chat.verify(req, res, qAnsd)){
+        chat.sendTextMessage(req.info.sender, "Incorrect response");
+        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+      }
+      else{
+        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+      }
+      break;
+
   }
   // var messageData = {
   //   text: req.info.text
