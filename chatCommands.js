@@ -44,7 +44,7 @@ chat.askQuestions = function(req, res, next){
     // console.log(resolve, reject);
     });
   p1.then(function(val){
-
+    next();
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
       next();
