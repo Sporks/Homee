@@ -66,24 +66,8 @@ chat.askQuestions = function(req, res, next){
       console.log(resolve, reject);
     });
   p1.then(function(val){
-    console.log(req.info.text, "DA       ");
-    request({
-      url: 'https://graph.facebook.com/v2.6/me/messages',
-      qs: {access_token:token},
-      method: 'POST',
-      json: {
-        recipient: {id:req.info.sender},
-        message: messageData,
-      }
-    }, function(error, response, body) {
-      if (error) {
-        console.log('Error sending message: ', error);
-      } else if (response.body.error) {
-        console.log('Error: ', response.body.error);
-      }
-      res.end();
-      // next();
-    });
+    console.log("HI", val);
+
   }).catch((val)=>{
       console.log("Promise rejected: ", val);
       next();
