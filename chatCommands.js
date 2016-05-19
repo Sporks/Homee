@@ -62,6 +62,7 @@ chat.askQuestions = function(req, res, next){
       break;
 
   }
+  console.log(qAnsd, "questions answered")
   // var messageData = {
   //   text: req.info.text
   // };
