@@ -47,7 +47,7 @@ module.exports = {
           }
           //If we find it, add it to the header for use with questions
           else if(foundOne){
-            console.log("SUP found", foundOne);
+            console.log("SUP found");
             req.info.db = foundOne;
             next();
           }
