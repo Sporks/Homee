@@ -24,7 +24,7 @@ var questions =  [{"q": "Hello and welcome to Homee!  What room can we help you 
 
 
 chat.verify = function(req, res, qAnsd){
-  let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.string.slice(1).toLowerCase();
+  let ans = req.info.text.charAt(0).toUpperCase() + req.info.text.slice(1).toLowerCase();
   if(questions[qAnsd].answers.indexOf(ans) === -1){
     return false;
   }
