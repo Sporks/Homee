@@ -179,14 +179,19 @@ chat.askQuestions = function(req, res, next){
       }
       break;
     case 5:
-      if(req.info.attachments.type === 'image'){
-        req.info.db.image = req.info.attachments.payload.url;
+      if(!req.info.attachments){
+        // console.log(req.info.attachments.type, req.info.attachments);
+        chat.sendTextMessage(req.info.sender, "Please upload a valid image");
+        break;
+      }
+      if(req.info.attachments[0].type === 'image'){
+        req.info.db.image = req.info.attachments[0].payload.url;
         chat.sendTextMessage(req.info.sender, "Great! Thanks for the picture");
         chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
         req.info.db.questsAnsd++;
       }
       else{
-        console.log(req.info.attachments.type, req.info.attachments);
+        console.log(req.info.attachments[0].type, req.info.attachments[0]);
         chat.sendTextMessage(req.info.sender, "Please upload a valid image");
         break;
       }
