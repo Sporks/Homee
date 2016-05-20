@@ -44,9 +44,12 @@ chat.verify = function(req, res, qAnsd, field){
     return false;
   }
   else{
-    chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-    chat.sendTextMessage(req.info.sender, "OK1111");
-    chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+    //Promisify to always get text in the same order
+    let promise = new Promise(function(resolve, reject){
+      chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+      resolve("Resolve");
+    });
+    promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
     //Update the db with the properly capitalized answer
     req.info.db[field] = questions[qAnsd-1].answers[ansArray.indexOf(ans)];
     return true;
@@ -108,13 +111,21 @@ chat.askQuestions = function(req, res, next){
           req.info.db.budget = 'Over $5000';
         }
         else{
-          chat.sendTextMessage(req.info.sender, "That is not a valid number ");
-          chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+          //Promisify to always get text in the same order
+          let promise = new Promise(function(resolve, reject){
+            chat.sendTextMessage(req.info.sender, "That is an invalid number");
+            resolve("Resolve");
+          });
+          promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
           break;
         }
         req.info.db.questsAnsd++;
-        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+        //Promisify to always get text in the same order
+        let promise = new Promise(function(resolve, reject){
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+          resolve("Resolve");
+        });
+        promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
       }
       else if(chat.verify(req, res, qAnsd, field)){
               req.info.db.questsAnsd++;
@@ -142,18 +153,28 @@ chat.askQuestions = function(req, res, next){
         else if(timeLine > 4)
           req.info.db.timeLine = '1 Month or more';
         else{
-          chat.sendTextMessage(req.info.sender, "That is not a valid number of weeks");
-          chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+          let promise = new Promise(function(resolve, reject){
+            chat.sendTextMessage(req.info.sender, "That is not a valid number of weeks");
+            resolve("Resolve");
+          });
+          promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
           break;
         }
         req.info.db.questsAnsd++;
-        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+        //Promisify to always get text in the same order
+        let promise = new Promise(function(resolve, reject){
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+          resolve("Resolve");
+        });
+        promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
       }
       //if none of the above check to see that they put a range in that matches
       else if(chat.verify(req, res, qAnsd, field)){
         req.info.db.questsAnsd++;
       }
+      break;
+    case 5:
+      console.log(req.info.text);
       break;
 
   }
