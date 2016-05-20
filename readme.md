@@ -11,3 +11,5 @@ I also implimented generic message templates to allow the user to review their r
 #Issues
 One thing I cannot seem to get working is getting the response ("thank you") to appear before the next question.
 I tried it with resolving promises, but it runs asynchronously
+
+Either heroku or the facebook api is a little slow sometimes and doesnt respond immediately, I am trying to figure out why this is

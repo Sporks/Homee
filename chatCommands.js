@@ -38,8 +38,10 @@ chat.verify = function(req, res, qAnsd, field){
     ansArray.push(val.toLowerCase().replace(/\s/gi, ""));
   });
   if(ansArray.indexOf(ans) === -1){
-    chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
-    chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+    var promise = new Promise(function(resolve, reject){
+      chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options", resolve, reject);
+    });
+    promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
     return false;
   }
   else{
@@ -293,8 +295,7 @@ chat.sendTextMessage = function(sender, text, resolve, reject) {
     }
     console.log(arguments.length);
     //Resolve promise here
-    if(arguments.length > 2){
-
+    if(arguments.length > 3){
       resolve("resolved");
     }
   });
