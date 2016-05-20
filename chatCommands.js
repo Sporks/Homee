@@ -31,14 +31,14 @@ var questions =  [{"q": "What room can we help you with?",
 
 chat.verify = function(req, res, qAnsd, field){
   //Lowercase user answer for ease of matching and remove spaces
-  let ans = req.info.text.toLowerCase();
+  let ans = req.info.text.toLowerCase().replace(/\s/gi, "");
   let ansArray = [];
   questions[qAnsd-1].answers.forEach(function(val){
-    //Put all to lowercase for ease of matching with answers provided by user
-    ansArray.push(val.toLowerCase());
+    //Put all to lowercase for ease of matching with answers provided by user and remove spaces
+    ansArray.push(val.toLowerCase().replace(/\s/gi, ""));
   });
   if(ansArray.indexOf(ans) === -1){
-    console.log(ansArray, ans)
+    console.log(ansArray, ans);
     chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
     chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
     return false;
@@ -110,8 +110,7 @@ chat.askQuestions = function(req, res, next){
         chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
         chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
       }
-      else if(chat.verify(req, res, qAnsd)){
-              req.info.db.budget = req.info.text;
+      else if(chat.verify(req, res, qAnsd, field)){
               req.info.db.questsAnsd++;
       }
       //if it's not a number run further analysis
@@ -119,16 +118,36 @@ chat.askQuestions = function(req, res, next){
     case 4:
     //Figure out how long
       var timeLine = req.info.text.replace(/weeks|week/gi, "").replace(/\s/g, "");
-      console.log(timeLine)
+      //If it has month in the string, we can assume it's 1 month or more
+      if(timeLine.match(/months|month/gi)){
+        console.log("Months");
+        req.info.db.timeLine = '1 Month or more';
+      }
+      console.log(timeLine);
       //Check if it was a number they entered
-      // if(timeLine*1){
-      //   if(timeline >= 1)
-      //   if(timeline >= 1)
-      //   if(timeline >= 1)
-      //   if(timeline >= 1)
-
-      // }
-
+      if(timeLine*1){
+        if(timeLine < 1 && timeLine >= 0)
+          req.info.db.timeLine = '0 - 1 Weeks';
+        else if(timeLine < 2 && timeLine >= 1)
+          req.info.db.timeLine = '1 - 2 Weeks';
+        else if(timeLine < 4 && timeLine >= 3)
+          req.info.db.timeLine = '3 - 4 Weeks';
+        else if(timeLine > 4)
+          req.info.db.timeLine = '1 Month or more';
+        else{
+          chat.sendTextMessage(req.info.sender, "That is not a valid number of weeks");
+          chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+          break;
+        }
+        req.info.db.questsAnsd++;
+        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+      }
+      //if none of the above check to see that they put a range in that matches
+      else if(chat.verify(req, res, qAnsd, field)){
+              req.info.db.questsAnsd++;
+      }
+      break;
 
   }
   console.log(qAnsd, "questions answered");
