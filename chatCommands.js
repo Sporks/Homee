@@ -39,9 +39,12 @@ chat.verify = function(req, res, qAnsd, field){
   });
   if(ansArray.indexOf(ans) === -1){
     var promise = new Promise(function(resolve, reject){
-      chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options", resolve, reject);
+      chat.sendTextMessage(req.info.sender,
+        "Incorrect response, please choose from the available options", resolve, reject);
     });
-    promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
+    promise.then((val)=>{
+      chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+    });
     return false;
   }
   else{
@@ -49,7 +52,9 @@ chat.verify = function(req, res, qAnsd, field){
     let promise = new Promise(function(resolve, reject){
       chat.sendTextMessage(req.info.sender, "Great, that's good to know!", resolve, reject);
     });
-    promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
+    promise.then((val)=>{
+      chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+    });
     //Update the db with the properly capitalized answer
     req.info.db[field] = questions[qAnsd-1].answers[ansArray.indexOf(ans)];
     return true;
