@@ -243,16 +243,12 @@ chat.sendStructuredMessage = function(req) {
         "template_type": "generic",
         "elements": [{
           "title": "Your responses",
-          "subtitle": "Room: "+req.info.db.room,
-          "buttons": [{
-            "type": "web_url",
-            "url": "https://www.messenger.com/",
-            "title": "Web url"
-          }, {
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
-          }],
+          "subtitle": `Room: ${req.info.db.room}
+                       Style: ${req.info.db.style}
+                       Budget: ${req.info.db.budget}
+                       Time Frame: ${req.info.db.timeLine}
+                       Special Requests: ${req.info.db.specialReqs}`,
+          "image_url": req.info.db.image,
         },{
           "title": "Second card",
           "subtitle": "Element #2 of an hscroll",
