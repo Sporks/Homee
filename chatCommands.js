@@ -186,6 +186,7 @@ chat.askQuestions = function(req, res, next){
         req.info.db.questsAnsd++;
       }
       else{
+        console.log(req.info.attachments.type, req.info.attachments);
         chat.sendTextMessage(req.info.sender, "Please upload a valid image");
         break;
       }
