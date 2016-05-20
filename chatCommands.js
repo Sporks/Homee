@@ -148,8 +148,8 @@ chat.askQuestions = function(req, res, next){
           req.info.db.timeLine = '0 - 1 Weeks';
         else if(timeLine <= 2 && timeLine >= 1)
           req.info.db.timeLine = '1 - 2 Weeks';
-        else if(timeLine < 4 && timeLine >= 3)
-          req.info.db.timeLine = '3 - 4 Weeks';
+        else if(timeLine <= 4 && timeLine > 2)
+          req.info.db.timeLine = '2 - 4 Weeks';
         else if(timeLine > 4)
           req.info.db.timeLine = '1 Month or more';
         else{

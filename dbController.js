@@ -11,7 +11,7 @@ module.exports = {
     for (let i = 0; i < messaging_events.length; i++) {
       let event = req.body.entry[0].messaging[i];
       req.info.sender = event.sender.id;
-      // req.sender = event.sender.id;
+      //Only respond if we have text or an image
       if (event.message && event.message.text) {
         req.info.text = event.message.text;
         var query = Update.where({user: req.info.sender, archived: false});
@@ -54,6 +54,7 @@ module.exports = {
 *****IF NO TEXT IS RECIEVED, GET OUT OF LOOP******
 **************************************************/
       else{
+        console.log(messaging_events)
         res.end();
       }
     }
