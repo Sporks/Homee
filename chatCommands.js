@@ -145,10 +145,11 @@ chat.askQuestions = function(req, res, next){
           resolve("Resolve");
         });
         promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
+        break;
       }
       console.log(timeLine);
       //Check if it was a number they entered
-      if(timeLine*1){
+      else if(timeLine*1){
         console.log("ok ");
         if(timeLine < 1 && timeLine >= 0)
           req.info.db.timeLine = '0 - 1 Weeks';
