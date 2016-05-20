@@ -9,7 +9,8 @@ There is a generic route to handle this.
 I also implimented generic message templates to allow the user to review their responses.  Becuase of the character limit, each response is on a different bubble
 
 #Issues
-One thing I cannot seem to get working is getting the response ("thank you") to appear before the next question.
-I tried it with resolving promises, but it runs asynchronously
+One thing I cannot seem to get working is getting the response eg ("thank you") to appear before the next question.
+I tried it with resolving promises, but it still runs asynchronously.
+This is due ot the async nature of the request module.
 
 Either heroku or the facebook api is a little slow sometimes and doesnt respond immediately, I am trying to figure out why this is
