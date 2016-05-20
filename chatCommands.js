@@ -18,7 +18,7 @@ var questions =  [{"q": "What room can we help you with?",
                         "answers": ['$500 and under', '$500 - $1000', '$1000 - $3000',
                                     '$3000 - $5000', 'Over $5000'],
                         "field": "budget"},
-                  {"q": "When do you need your furniture by?",
+                  {"q": "When do you need your furniture by? Please enter a number of weeks",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"],
                         "field": "timeLine"},
@@ -116,6 +116,18 @@ chat.askQuestions = function(req, res, next){
       }
       //if it's not a number run further analysis
       break;
+    case 4:
+    //Figure out how long
+      var timeLine = req.info.text.replace(/(week|weeks)/gi, "").replace(/\s/g, "");
+      console.log(timeLine)
+      //Check if it was a number they entered
+      // if(timeLine*1){
+      //   if(timeline >= 1)
+      //   if(timeline >= 1)
+      //   if(timeline >= 1)
+      //   if(timeline >= 1)
+
+      // }
 
 
   }
@@ -136,7 +148,7 @@ chat.askQuestions = function(req, res, next){
       console.log("Promise rejected: ", val);
       next();
   });
-}
+};
 
 chat.sendTextMessage = function(sender, text) {
   var messageData = {
