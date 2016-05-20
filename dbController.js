@@ -54,7 +54,6 @@ module.exports = {
 *****IF NO TEXT IS RECIEVED, GET OUT OF LOOP******
 **************************************************/
       else{
-        console.log(messaging_events);
         res.end();
       }
     }

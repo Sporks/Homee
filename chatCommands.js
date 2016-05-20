@@ -179,6 +179,7 @@ chat.askQuestions = function(req, res, next){
       }
       break;
     case 5:
+    //Make sure they upload a proper picture
       if(!req.info.attachments){
         // console.log(req.info.attachments.type, req.info.attachments);
         chat.sendTextMessage(req.info.sender, "Please upload a valid image");
