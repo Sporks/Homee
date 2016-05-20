@@ -66,6 +66,11 @@ chat.askQuestions = function(req, res, next){
         console.log(typeOf(req.info.text))
         console.log("WHOA")
       }
+      else{
+        console.log(typeOf(req.info.text))
+        console.log(":()")
+      }
+      break;
 
 
   }
