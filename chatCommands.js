@@ -291,11 +291,11 @@ chat.sendTextMessage = function(sender, text, resolve, reject) {
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
     }
+    //Resolve promise here
+    if(arguments.length > 2){
+      resolve("resolved");
+    }
   });
-  //Resolve promise here
-  if(arguments.length > 2){
-    resolve("resolved");
-  }
 };
 
 module.exports = chat;
