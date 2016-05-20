@@ -241,21 +241,23 @@ chat.sendStructuredMessage = function(req) {
       "payload": {
         "template_type": "generic",
         "elements": [{
-          "title": "Your responses",
-          "subtitle": `Room: ${req.info.db.room}\n
-                       Style: ${req.info.db.style}
-                       Budget: ${req.info.db.budget}
-                       Time Frame: ${req.info.db.timeLine}
-                       Special Requests: ${req.info.db.specialReqs}`,
+          "title": "Room",
+          "subtitle": `${req.info.db.room}`,
         },{
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-          "buttons": [{
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
+          "title": "Style",
+          "subtitle": req.info.db.style,
+        },{
+          "title": "Budget",
+          "subtitle": req.info.db.budget,
+        },{
+          "title": "Time Frame",
+          "subtitle": req.info.db.timeLine,
+        },{
+          "title": "Picture of room",
+          "image_url": req.info.db.image,
+        },{
+          "title": "Special Requests",
+          "subtitle": req.info.db.specialReqs,
         }]
       }
     }
