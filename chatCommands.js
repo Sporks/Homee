@@ -38,7 +38,6 @@ chat.verify = function(req, res, qAnsd, field){
     ansArray.push(val.toLowerCase().replace(/\s/gi, ""));
   });
   if(ansArray.indexOf(ans) === -1){
-    console.log(ansArray, ans);
     chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
     chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
     return false;
