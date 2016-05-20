@@ -45,6 +45,7 @@ chat.verify = function(req, res, qAnsd, field){
   }
   else{
     chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+    chat.sendTextMessage(req.info.sender, "OK1111");
     chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
     //Update the db with the properly capitalized answer
     req.info.db[field] = questions[qAnsd-1].answers[ansArray.indexOf(ans)];
@@ -54,7 +55,7 @@ chat.verify = function(req, res, qAnsd, field){
 
 chat.createQuestion = function(qAnsd){
   console.log(questions[qAnsd].q)
-  if(questions[qAnsd])
+  if(questions[qAnsd].answers)
     return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
   else {
     return questions[qAnsd].q;
@@ -131,7 +132,7 @@ chat.askQuestions = function(req, res, next){
       console.log(timeLine);
       //Check if it was a number they entered
       if(timeLine*1){
-        console.log("ok");
+        console.log("ok ");
         if(timeLine < 1 && timeLine >= 0)
           req.info.db.timeLine = '0 - 1 Weeks';
         else if(timeLine <= 2 && timeLine >= 1)
@@ -151,7 +152,7 @@ chat.askQuestions = function(req, res, next){
       }
       //if none of the above check to see that they put a range in that matches
       else if(chat.verify(req, res, qAnsd, field)){
-              req.info.db.questsAnsd++;
+        req.info.db.questsAnsd++;
       }
       break;
 
