@@ -13,6 +13,7 @@ module.exports = {
       //Only respond if we have text or an image
       if (event.message && event.message.text || event.message && event.message.attachments ) {
         req.info.text = event.message.text;
+        req.info.attachments = event.message.attachments;
         var query = Update.where({user: req.info.sender, archived: false});
         //Search for document we saved to continue asking questions;
         query.findOne(function(err, foundOne){
