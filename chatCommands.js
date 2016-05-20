@@ -201,7 +201,7 @@ chat.askQuestions = function(req, res, next){
       req.info.db.specialReqs = req.info.text;
       console.log(req.info.text);
 
-      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes' or visit https://homeebot.herokuapp.com/"+req.info.sender);
+      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
       req.info.db.questsAnsd++;
       req.info.db.archived = true;
       break;
