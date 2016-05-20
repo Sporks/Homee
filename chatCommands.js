@@ -9,15 +9,15 @@ var chat = {};
 var questions =  [{"q": "What room can we help you with?",
                         "answers": ["Living Room", "Bedroom", "Office",
                                     "Dining Room", "Outdoor"]},
+                  {"q": "How would you describe your style?",
+                        "answers": ["Modern", "Traditional", "Industrial",
+                                    "Eclectic", "Contemporary"]},
                   {"q": "What is your budget?",
                         "answers": ["$500 and under", "­$500 ­- $1000", "$1000 - $3000",
                                     "$3000 - $5000", "Over $5000"]},
                   {"q": "When do you need your furniture by?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"]},
-                  {"q": "How would you describe your style?",
-                        "answers": ["Modern", "Traditional", "Industrial",
-                                    "Eclectic", "Contemporary"]},
                   {"q": "Can you send us some pictures of your space?"},
                   {"q": "Do you have any special requests or additional information?"}
                 ];
@@ -55,11 +55,17 @@ chat.askQuestions = function(req, res, next){
       req.info.db.questsAnsd++;
       break;
     case 1:
+    case 2:
       if(chat.verify(req, res, qAnsd)){
         req.info.db.room = req.info.text;
         req.info.db.questsAnsd++;
       }
       break;
+    case 3:
+      if(req.info.text > 2000){
+        console.log("WHOA")
+      }
+
 
   }
   console.log(qAnsd, "questions answered")
