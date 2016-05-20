@@ -53,6 +53,7 @@ chat.verify = function(req, res, qAnsd, field){
 };
 
 chat.createQuestion = function(qAnsd){
+  console.log(questions[qAnsd].q)
   return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
 };
 
