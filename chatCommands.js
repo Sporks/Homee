@@ -204,12 +204,15 @@ chat.askQuestions = function(req, res, next){
       req.info.db.archived = true;
       break;
     case 7:
-      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes' or visit https://homeebot.herokuapp.com/"+req.info.sender);
+      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
       if(req.info.text.toLowerCase() === "yes"){
-        chat.sendStructuredMessage();
+        chat.sendStructuredMessage(req);
+        next();
+      }
+      else{
+        next();
       }
   }
-  // console.log(qAnsd, "questions answered");
   var p1 = new Promise((resolve, reject)=>{
     //REMEMBER TO RESOLVE PROMISES!
     dbController.updateInfo(req.info, resolve, reject);
@@ -223,6 +226,41 @@ chat.askQuestions = function(req, res, next){
       next();
   });
 };
+
+//Add a way for the user to review their responses using the generic message template
+chat.sendStructuredMessage = function(req) {
+  var messageData = {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [{
+          "title": "Your responses",
+          "subtitle": "Room: "+req.info.db.room,
+          "buttons": [{
+            "type": "web_url",
+            "url": "https://www.messenger.com/",
+            "title": "Web url"
+          }, {
+            "type": "postback",
+            "title": "Postback",
+            "payload": "Payload for first element in a generic bubble",
+          }],
+        },{
+          "title": "Second card",
+          "subtitle": "Element #2 of an hscroll",
+          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
+          "buttons": [{
+            "type": "postback",
+            "title": "Postback",
+            "payload": "Payload for second element in a generic bubble",
+          }],
+        }]
+      }
+    }
+  }
+};
+
 
 chat.sendTextMessage = function(sender, text) {
   var messageData = {
