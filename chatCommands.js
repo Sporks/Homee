@@ -13,8 +13,8 @@ var questions =  [{"q": "What room can we help you with?",
                         "answers": ["Modern", "Traditional", "Industrial",
                                     "Eclectic", "Contemporary"]},
                   {"q": "What is your budget?",
-                        "answers": ["$500 and under", "­$500 ­- $1000", "$1000 - $3000",
-                                    "$3000 - $5000", "Over $5000"]},
+                        "answers": ['$500 and under', '$500 - $1000', '$1000 - $3000',
+                                    '$3000 - $5000', 'Over $5000']},
                   {"q": "When do you need your furniture by?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
                                     "1 Month or more"]},
@@ -24,7 +24,7 @@ var questions =  [{"q": "What room can we help you with?",
 
 
 chat.verify = function(req, res, qAnsd){
-  //Lowercase user answer for ease of matching
+  //Lowercase user answer for ease of matching and remove spaces
   let ans = req.info.text.toLowerCase();
   let ansArray = [];
   questions[qAnsd-1].answers.forEach(function(val){
