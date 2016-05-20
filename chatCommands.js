@@ -62,14 +62,30 @@ chat.askQuestions = function(req, res, next){
       }
       break;
     case 3:
-      if(req.info.text > 2000){
-        console.log(typeof(req.info.text))
-        console.log("WHOA")
+
+      //See if we can typecast to a number but first remove the $ from the front
+      var budget = req.info.text;
+      if(budget.charAt(0) === "$"){
+        budget.slice(1);
       }
-      else{
-        console.log(typeof(req.info.text))
-        console.log(":()")
+      if(budget*1){
+        if(budget <= 500){
+          req.info.db.budget = '$500 and under';
+        }
+        else if(budget <= 1000 || budget > 500){
+          req.info.db.budget = '$500 - $1000';
+        }
+        else if(budget <= 3000 || budget > 1000){
+          req.info.db.budget = '$1000 - $3000';
+        }
+        else if(budget <= 5000  || budget > 3000){
+          req.info.db.budget = '$3000 - $5000';
+        }
+        else if(budget > 5000){
+          req.info.db.budget = 'Over $5000';
+        }
       }
+      //if it's not a number run further analysis
       break;
 
 
