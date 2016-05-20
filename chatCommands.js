@@ -69,28 +69,39 @@ chat.askQuestions = function(req, res, next){
         budget.slice(1);
       }
       if(budget*1){
-        if(budget <= 500){
+        //Make sure its more than 0
+        if(budget <= 500 && budget > 0){
           req.info.db.budget = '$500 and under';
         }
-        else if(budget <= 1000 || budget > 500){
+        else if(budget <= 1000 && budget > 500){
           req.info.db.budget = '$500 - $1000';
         }
-        else if(budget <= 3000 || budget > 1000){
+        else if(budget <= 3000 && budget > 1000){
           req.info.db.budget = '$1000 - $3000';
         }
-        else if(budget <= 5000  || budget > 3000){
+        else if(budget <= 5000 && budget > 3000){
           req.info.db.budget = '$3000 - $5000';
         }
         else if(budget > 5000){
           req.info.db.budget = 'Over $5000';
         }
+        else{
+          chat.sendTextMessage(req.info.sender, "That is not a valid number ");
+          chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
+          break;
+        }
+        req.info.db.questsAnsd++;
+      }
+      else if(chat.verify(req, res, qAnsd)){
+              req.info.db.room = req.info.text;
+              req.info.db.questsAnsd++;
       }
       //if it's not a number run further analysis
       break;
 
 
   }
-  console.log(qAnsd, "questions answered")
+  console.log(qAnsd, "questions answered");
   // var messageData = {
   //   text: req.info.text
   // };
