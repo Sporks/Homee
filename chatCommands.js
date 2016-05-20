@@ -131,6 +131,7 @@ chat.askQuestions = function(req, res, next){
       console.log(timeLine);
       //Check if it was a number they entered
       if(timeLine*1){
+        console.log("ok");
         if(timeLine < 1 && timeLine >= 0)
           req.info.db.timeLine = '0 - 1 Weeks';
         else if(timeLine <= 2 && timeLine >= 1)
