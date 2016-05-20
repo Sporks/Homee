@@ -58,6 +58,7 @@ chat.createQuestion = function(qAnsd){
 
 chat.askQuestions = function(req, res, next){
   let qAnsd = req.info.db.questsAnsd;
+  let field = questions[qAnsd-1].field;
   switch(qAnsd){
     case 0:
       chat.sendTextMessage(req.info.sender, "Hello and welcome to Homee! "+chat.createQuestion(qAnsd));
