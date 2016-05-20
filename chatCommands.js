@@ -62,6 +62,9 @@ chat.askQuestions = function(req, res, next){
   if(qAnsd > 0){
     let field = questions[qAnsd-1].field;
   }
+  else{
+    let field = "room";
+  }
   switch(qAnsd){
     case 0:
       chat.sendTextMessage(req.info.sender, "Hello and welcome to Homee! "+chat.createQuestion(qAnsd));
