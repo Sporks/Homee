@@ -212,7 +212,6 @@ chat.askQuestions = function(req, res, next){
         next();
       }
       else{
-        console.log("why")
         chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
         next();
       }
@@ -243,12 +242,11 @@ chat.sendStructuredMessage = function(req) {
         "template_type": "generic",
         "elements": [{
           "title": "Your responses",
-          "subtitle": `Room: ${req.info.db.room}
+          "subtitle": `Room: ${req.info.db.room}\n
                        Style: ${req.info.db.style}
                        Budget: ${req.info.db.budget}
                        Time Frame: ${req.info.db.timeLine}
                        Special Requests: ${req.info.db.specialReqs}`,
-          "image_url": req.info.db.image,
         },{
           "title": "Second card",
           "subtitle": "Element #2 of an hscroll",
