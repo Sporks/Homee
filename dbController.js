@@ -12,7 +12,7 @@ module.exports = {
       let event = req.body.entry[0].messaging[i];
       req.info.sender = event.sender.id;
       //Only respond if we have text or an image
-      if (event.message && event.message.text) {
+      if (event.message && event.message.text || event.message && event.message.attachments ) {
         req.info.text = event.message.text;
         var query = Update.where({user: req.info.sender, archived: false});
         //Search for document we saved to continue asking questions;
