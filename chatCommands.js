@@ -32,6 +32,7 @@ chat.verify = function(req, res, qAnsd){
     ansArray.push(val.toLowerCase());
   });
   if(ansArray.indexOf(ans) === -1){
+    console.log(ansArray, ans)
     chat.sendTextMessage(req.info.sender, "Incorrect response, please choose from the available options");
     chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1));
     return false;
@@ -93,7 +94,7 @@ chat.askQuestions = function(req, res, next){
         req.info.db.questsAnsd++;
       }
       else if(chat.verify(req, res, qAnsd)){
-              req.info.db.room = req.info.text;
+              req.info.db.budget = req.info.text;
               req.info.db.questsAnsd++;
       }
       //if it's not a number run further analysis
