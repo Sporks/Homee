@@ -27,7 +27,7 @@ chat.verify = function(req, res, qAnsd){
   //Lowercase user answer for ease of matching
   let ans = req.info.text.toLowerCase();
   let ansArray = [];
-  questions[qAnsd].answers.forEach(function(val){
+  questions[qAnsd-1].answers.forEach(function(val){
     //Put all to lowercase for ease of matching with answers provided by user
     ansArray.push(val.toLowerCase());
   });
@@ -55,7 +55,7 @@ chat.askQuestions = function(req, res, next){
       req.info.db.questsAnsd++;
       break;
     case 1:
-      if(chat.verify(req, res, qAnsd-1)){
+      if(chat.verify(req, res, qAnsd)){
         req.info.db.room = req.info.text;
         req.info.db.questsAnsd++;
       }
