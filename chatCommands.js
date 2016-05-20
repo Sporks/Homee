@@ -174,15 +174,20 @@ chat.askQuestions = function(req, res, next){
       }
       break;
     case 5:
-      console.log(req.info.attachments, "Hello");
+      if(req.info.attachments.type === 'image'){
+        req.info.db.image = req.info.attachments.payload.url;
+        chat.sendTextMessage(req.info.sender, "Great! Thanks for the picture");
+        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+        req.info.db.questsAnsd++;
+      }
+      else{
+        chat.sendTextMessage(req.info.sender, "Please upload a valid image");
+        break;
+      }
       break;
 
   }
   console.log(qAnsd, "questions answered");
-  // var messageData = {
-  //   text: req.info.text
-  // };
-  //Promisify updating the database
   var p1 = new Promise((resolve, reject)=>{
     //REMEMBER TO RESOLVE PROMISES!
     dbController.updateInfo(req.info, resolve, reject);

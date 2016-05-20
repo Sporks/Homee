@@ -8,7 +8,7 @@ var updateSchema = new Schema({
   budget: String,
   timeLine:  String,
   style: String,
-  image: {data: Buffer, contentType: String},
+  image: String,
   specialReqs: String,
   questsAnsd: Number,
   archived: Boolean,
