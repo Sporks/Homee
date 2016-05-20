@@ -197,9 +197,19 @@ chat.askQuestions = function(req, res, next){
         break;
       }
       break;
-
+    case 6:
+      req.info.db.specialReqs = req.info.text;
+      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes' or visit https://homeebot.herokuapp.com/"+req.info.sender);
+      req.info.db.questsAnsd++;
+      req.info.db.archived = true;
+      break;
+    case 7:
+      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes' or visit https://homeebot.herokuapp.com/"+req.info.sender);
+      if(req.info.text.toLowerCase() === "yes"){
+        chat.sendStructuredMessage();
+      }
   }
-  console.log(qAnsd, "questions answered");
+  // console.log(qAnsd, "questions answered");
   var p1 = new Promise((resolve, reject)=>{
     //REMEMBER TO RESOLVE PROMISES!
     dbController.updateInfo(req.info, resolve, reject);

@@ -3,6 +3,25 @@ const Update = require('./updateModel');
 
 
 module.exports = {
+  returnInfo: function(req, res, next){
+    var query = Update.where({user: req.originalUrl.slice(1)});
+    //Search for document we saved to continue asking questions;
+    query.findOne(function(err, foundOne){
+      if(err){
+        console.log("ERROR ERROR     ", err);
+      }
+      //IF we can't find the user, send them to a generic 404 page
+      if(!foundOne){
+        res.send("404 bad query");
+      }
+      //If we find it, add it to the header for use with questions
+      else if(foundOne){
+        console.log("SUP found");
+        req.userData = foundOne;
+        next();
+      }
+    });
+  },
   getInfo: function(req, res, next){
     //Initialize req.info to store data
     let messaging_events = req.body.entry[0].messaging;
@@ -14,7 +33,7 @@ module.exports = {
       if (event.message && event.message.text || event.message && event.message.attachments ) {
         req.info.text = event.message.text;
         req.info.attachments = event.message.attachments;
-        var query = Update.where({user: req.info.sender, archived: false});
+        var query = Update.where({user: req.info.sender});
         //Search for document we saved to continue asking questions;
         query.findOne(function(err, foundOne){
           if(err){
