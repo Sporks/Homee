@@ -118,7 +118,7 @@ chat.askQuestions = function(req, res, next){
       break;
     case 4:
     //Figure out how long
-      var timeLine = req.info.text.replace(/week|weeks/gi, "").replace(/\s/g, "");
+      var timeLine = req.info.text.replace(/(week)|(weeks)/gi, "").replace(/\s/g, "");
       console.log(timeLine)
       //Check if it was a number they entered
       // if(timeLine*1){
