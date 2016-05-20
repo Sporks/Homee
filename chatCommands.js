@@ -8,22 +8,28 @@ var chat = {};
 // chat.sendTextMessage = sendTextMessage;
 var questions =  [{"q": "What room can we help you with?",
                         "answers": ["Living Room", "Bedroom", "Office",
-                                    "Dining Room", "Outdoor"]},
+                                    "Dining Room", "Outdoor"],
+                        "field": "room"},
                   {"q": "How would you describe your style?",
                         "answers": ["Modern", "Traditional", "Industrial",
-                                    "Eclectic", "Contemporary"]},
+                                    "Eclectic", "Contemporary"],
+                        "field": "style"},
                   {"q": "What is your budget?",
                         "answers": ['$500 and under', '$500 - $1000', '$1000 - $3000',
-                                    '$3000 - $5000', 'Over $5000']},
+                                    '$3000 - $5000', 'Over $5000'],
+                        "field": "budget"},
                   {"q": "When do you need your furniture by?",
                         "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
-                                    "1 Month or more"]},
-                  {"q": "Can you send us some pictures of your space?"},
-                  {"q": "Do you have any special requests or additional information?"}
+                                    "1 Month or more"],
+                        "field": "timeLine"},
+                  {"q": "Can you send us some pictures of your space?",
+                        "field": "image"},
+                  {"q": "Do you have any special requests or additional information?",
+                        "field": "specialReqs"}
                 ];
 
 
-chat.verify = function(req, res, qAnsd){
+chat.verify = function(req, res, qAnsd, field){
   //Lowercase user answer for ease of matching and remove spaces
   let ans = req.info.text.toLowerCase();
   let ansArray = [];
@@ -40,6 +46,8 @@ chat.verify = function(req, res, qAnsd){
   else{
     chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
     chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
+    //Update the db with the properly capitalized answer
+    req.info.db[field] = questions[qAnsd-1].answers[ansArray.indexOf(ans)];
     return true;
   }
 };
@@ -57,13 +65,11 @@ chat.askQuestions = function(req, res, next){
       break;
     case 1:
     case 2:
-      if(chat.verify(req, res, qAnsd)){
-        req.info.db.room = req.info.text;
+      if(chat.verify(req, res, qAnsd, field)){
         req.info.db.questsAnsd++;
       }
       break;
     case 3:
-
       //See if we can typecast to a number but first remove the $ from the front
       var budget = req.info.text;
       if(budget.charAt(0) === "$"){
