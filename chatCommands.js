@@ -291,8 +291,10 @@ chat.sendTextMessage = function(sender, text, resolve, reject) {
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
     }
+    console.log(arguments.length);
     //Resolve promise here
     if(arguments.length > 2){
+
       resolve("resolved");
     }
   });
