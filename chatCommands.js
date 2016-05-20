@@ -68,7 +68,7 @@ chat.askQuestions = function(req, res, next){
   let qAnsd = req.info.db.questsAnsd;
   //Make it easy to dynamically update the field, but only if the first questions been asked
   let field;
-  if(qAnsd > 0){
+  if(qAnsd > 0 && qAnsd < 7){
     field = questions[qAnsd-1].field;
   }
   else{
