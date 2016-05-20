@@ -298,12 +298,13 @@ chat.sendTextMessage = function(sender, text, resolve, reject) {
     } else if (response.body.error) {
       console.log('Error: ', response.body.error);
     }
-    console.log(arguments.length);
-    //Resolve promise here
-    if(arguments.length > 3){
-      resolve("resolved");
-    }
+
   });
+  console.log(arguments.length);
+  //Resolve promise here
+  if(arguments.length > 3){
+    resolve("resolved");
+  }
 };
 
 module.exports = chat;
