@@ -294,7 +294,7 @@ chat.sendTextMessage = function(sender, text, resolve, reject) {
   });
   //Resolve promise here
   if(arguments.length > 2){
-    resolve("Resolved");
+    resolve("resolved");
   }
 };
 
