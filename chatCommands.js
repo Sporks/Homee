@@ -199,12 +199,15 @@ chat.askQuestions = function(req, res, next){
       break;
     case 6:
       req.info.db.specialReqs = req.info.text;
+      console.log(req.info.text);
+
       chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes' or visit https://homeebot.herokuapp.com/"+req.info.sender);
       req.info.db.questsAnsd++;
       req.info.db.archived = true;
       break;
     case 7:
       console.log(req.info.text);
+
       chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
       if(req.info.text.toLowerCase() === "yes"){
         chat.sendStructuredMessage(req);
@@ -213,6 +216,9 @@ chat.askQuestions = function(req, res, next){
       else{
         next();
       }
+      break;
+    default:
+      break;
   }
   var p1 = new Promise((resolve, reject)=>{
     //REMEMBER TO RESOLVE PROMISES!
