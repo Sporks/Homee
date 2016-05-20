@@ -19,7 +19,7 @@ var questions =  [{"q": "What room can we help you with?",
                                     '$3000 - $5000', 'Over $5000'],
                         "field": "budget"},
                   {"q": "When do you need your furniture by? Please enter a number of weeks",
-                        "answers": ["0 - 1 Weeks", "1-2 Weeks", "3-4 Weeks",
+                        "answers": ["0 - 1 Weeks", "1 - 2 Weeks", "3 - 4 Weeks",
                                     "1 Month or more"],
                         "field": "timeLine"},
                   {"q": "Can you send us some pictures of your space?",
@@ -54,7 +54,11 @@ chat.verify = function(req, res, qAnsd, field){
 
 chat.createQuestion = function(qAnsd){
   console.log(questions[qAnsd].q)
-  return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
+  if(questions[qAnsd])
+    return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
+  else {
+    return questions[qAnsd].q;
+  }
 };
 
 chat.askQuestions = function(req, res, next){
@@ -129,7 +133,7 @@ chat.askQuestions = function(req, res, next){
       if(timeLine*1){
         if(timeLine < 1 && timeLine >= 0)
           req.info.db.timeLine = '0 - 1 Weeks';
-        else if(timeLine < 2 && timeLine >= 1)
+        else if(timeLine <= 2 && timeLine >= 1)
           req.info.db.timeLine = '1 - 2 Weeks';
         else if(timeLine < 4 && timeLine >= 3)
           req.info.db.timeLine = '3 - 4 Weeks';
