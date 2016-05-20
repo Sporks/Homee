@@ -58,12 +58,16 @@ chat.createQuestion = function(qAnsd){
 
 chat.askQuestions = function(req, res, next){
   let qAnsd = req.info.db.questsAnsd;
-  let field = questions[qAnsd-1].field;
+  //Make it easy to dynamically update the field, but only if the first questions been asked
+  if(qAnsd > 0){
+    let field = questions[qAnsd-1].field;
+  }
   switch(qAnsd){
     case 0:
       chat.sendTextMessage(req.info.sender, "Hello and welcome to Homee! "+chat.createQuestion(qAnsd));
       req.info.db.questsAnsd++;
       break;
+    //verify answer from last question
     case 1:
     case 2:
       if(chat.verify(req, res, qAnsd, field)){
