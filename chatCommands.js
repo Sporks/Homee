@@ -45,8 +45,7 @@ chat.verify = function(req, res, qAnsd, field){
   else{
     //Promisify to always get text in the same order
     let promise = new Promise(function(resolve, reject){
-      chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-      resolve("Resolve");
+      chat.sendTextMessage(req.info.sender, "Great, that's good to know!", resolve, reject);
     });
     promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
     //Update the db with the properly capitalized answer
@@ -56,7 +55,6 @@ chat.verify = function(req, res, qAnsd, field){
 };
 
 chat.createQuestion = function(qAnsd){
-  console.log(questions[qAnsd].q)
   if(questions[qAnsd].answers)
     return questions[qAnsd].q+"\nOptions are: "+questions[qAnsd].answers.join(", ");
   else {
@@ -112,8 +110,7 @@ chat.askQuestions = function(req, res, next){
         else{
           //Promisify to always get text in the same order
           let promise = new Promise(function(resolve, reject){
-            chat.sendTextMessage(req.info.sender, "That is an invalid number");
-            resolve("Resolve");
+            chat.sendTextMessage(req.info.sender, "That is an invalid number", resolve, reject);
           });
           promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
           break;
@@ -121,8 +118,7 @@ chat.askQuestions = function(req, res, next){
         req.info.db.questsAnsd++;
         //Promisify to always get text in the same order
         let promise = new Promise(function(resolve, reject){
-          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-          resolve("Resolve");
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!", resolve, reject);
         });
         promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
       }
@@ -140,8 +136,7 @@ chat.askQuestions = function(req, res, next){
         req.info.db.timeLine = '1 Month or more';
         //Promisify to always get text in the same order
         let promise = new Promise(function(resolve, reject){
-          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-          resolve("Resolve");
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!", resolve, reject);
         });
         promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
         break;
@@ -159,8 +154,7 @@ chat.askQuestions = function(req, res, next){
           req.info.db.timeLine = '1 Month or more';
         else{
           let promise = new Promise(function(resolve, reject){
-            chat.sendTextMessage(req.info.sender, "That is not a valid number of weeks");
-            resolve("Resolve");
+            chat.sendTextMessage(req.info.sender, "That is not a valid number of weeks", resolve, reject);
           });
           promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd-1)));
           break;
@@ -168,8 +162,7 @@ chat.askQuestions = function(req, res, next){
         req.info.db.questsAnsd++;
         //Promisify to always get text in the same order
         let promise = new Promise(function(resolve, reject){
-          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
-          resolve("Resolve");
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!", resolve, reject);
         });
         promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
       }
@@ -261,7 +254,7 @@ chat.sendStructuredMessage = function(req) {
         }]
       }
     }
-  }
+  };
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -280,7 +273,7 @@ chat.sendStructuredMessage = function(req) {
 };
 
 
-chat.sendTextMessage = function(sender, text) {
+chat.sendTextMessage = function(sender, text, resolve, reject) {
   var messageData = {
     text:text
   };
@@ -299,6 +292,10 @@ chat.sendTextMessage = function(sender, text) {
       console.log('Error: ', response.body.error);
     }
   });
-}
+  //Resolve promise here
+  if(arguments.length > 2){
+    resolve("Resolved");
+  }
+};
 
 module.exports = chat;

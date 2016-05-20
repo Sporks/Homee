@@ -63,7 +63,6 @@ module.exports = {
           }
           //If we find it, add it to the header for use with questions
           else if(foundOne){
-            console.log("SUP found");
             req.info.db = foundOne;
             next();
           }
@@ -87,7 +86,6 @@ module.exports = {
         reject("DB Error"+err);
       }
       else{
-        console.log("NewInfo ");
         resolve("Resolved");
       }
     });
