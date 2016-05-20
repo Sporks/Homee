@@ -5,7 +5,6 @@ const Update = require('./updateModel');
 module.exports = {
   getInfo: function(req, res, next){
     //Initialize req.info to store data
-    console.log("OK");
     let messaging_events = req.body.entry[0].messaging;
     req.info = {};
     for (let i = 0; i < messaging_events.length; i++) {
@@ -54,7 +53,7 @@ module.exports = {
 *****IF NO TEXT IS RECIEVED, GET OUT OF LOOP******
 **************************************************/
       else{
-        console.log(messaging_events)
+        console.log(messaging_events);
         res.end();
       }
     }

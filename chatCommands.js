@@ -174,7 +174,7 @@ chat.askQuestions = function(req, res, next){
       }
       break;
     case 5:
-      console.log(req.info.text);
+      console.log(req.info.attachments);
       break;
 
   }
