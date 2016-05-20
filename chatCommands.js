@@ -139,6 +139,12 @@ chat.askQuestions = function(req, res, next){
       if(timeLine.match(/months|month/gi)){
         console.log("Months");
         req.info.db.timeLine = '1 Month or more';
+        //Promisify to always get text in the same order
+        let promise = new Promise(function(resolve, reject){
+          chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+          resolve("Resolve");
+        });
+        promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
       }
       console.log(timeLine);
       //Check if it was a number they entered
