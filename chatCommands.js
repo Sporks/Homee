@@ -92,6 +92,8 @@ chat.askQuestions = function(req, res, next){
           break;
         }
         req.info.db.questsAnsd++;
+        chat.sendTextMessage(req.info.sender, "Great, that's good to know!");
+        chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd));
       }
       else if(chat.verify(req, res, qAnsd)){
               req.info.db.budget = req.info.text;
