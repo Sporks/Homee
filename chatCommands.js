@@ -208,13 +208,13 @@ chat.askQuestions = function(req, res, next){
     case 7:
       console.log(req.info.text, "hell");
 
-      chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
-      if(req.info.text.toLowerCase() === "yes"){
+      if(req.info.text.match(/yes/gi)){
         chat.sendStructuredMessage(req);
         next();
       }
       else{
         console.log("why")
+        chat.sendTextMessage(req.info.sender, "Thank you very much!  We have archived your responses to view in the future.\n If you would like to view your responses please type 'yes'");
         next();
       }
       break;
