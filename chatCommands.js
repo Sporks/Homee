@@ -59,11 +59,12 @@ chat.createQuestion = function(qAnsd){
 chat.askQuestions = function(req, res, next){
   let qAnsd = req.info.db.questsAnsd;
   //Make it easy to dynamically update the field, but only if the first questions been asked
+  let field;
   if(qAnsd > 0){
-    let field = questions[qAnsd-1].field;
+    field = questions[qAnsd-1].field;
   }
   else{
-    let field = "room";
+    field = "room";
   }
   switch(qAnsd){
     case 0:
