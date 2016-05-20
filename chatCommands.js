@@ -63,11 +63,11 @@ chat.askQuestions = function(req, res, next){
       break;
     case 3:
       if(req.info.text > 2000){
-        console.log(typeOf(req.info.text))
+        console.log(typeof(req.info.text))
         console.log("WHOA")
       }
       else{
-        console.log(typeOf(req.info.text))
+        console.log(typeof(req.info.text))
         console.log(":()")
       }
       break;
