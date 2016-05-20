@@ -147,7 +147,6 @@ chat.askQuestions = function(req, res, next){
         promise.then((val)=>chat.sendTextMessage(req.info.sender, chat.createQuestion(qAnsd)));
         break;
       }
-      console.log(timeLine);
       //Check if it was a number they entered
       else if(timeLine*1){
         console.log("ok ");
