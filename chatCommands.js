@@ -214,6 +214,7 @@ chat.askQuestions = function(req, res, next){
         next();
       }
       else{
+        console.log("why")
         next();
       }
       break;
